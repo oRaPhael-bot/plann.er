@@ -1,12 +1,34 @@
 import { MapPin, Calendar, Settings2 } from "lucide-react";
 import { Button } from "../../components/button";
+import { useParams } from "react-router-dom";
+import { api } from "../../lib/axios";
+import { useEffect, useState } from "react";
+
+interface Trip {
+  id: string;
+  destination: string;
+  start_at: string;
+  ends_at: string;
+  is_confirmed: boolean;
+}
 
 export function DestinationAndDateHeader() {
+  // const { tripId } = useParams();
+  const tripId = localStorage.getItem("tripId") || "0";
+  console.log("ID da viagem:", tripId);
+  const [trip, setTrip] = useState<Trip | undefined>();
+  console.log("Trip:", trip);
+
+  useEffect(() => {
+    api.get(`/trips/${tripId}`).then((response) => setTrip(response.data));
+  }, [tripId]);
+
   return (
     <div className="px-4 h-16 rounded-xl bg-zinc-900 shadow-shape flex items-center justify-between">
       <div className="flex items-center gap-2">
         <MapPin className="size-5 text-zinc-400" />
-        <span className="text-zinc-100">Florianópolis, Brasil</span>
+        {/* depois que alterei o {trip?.destination} deu problema */}
+        <span className="text-zinc-100">{trip?.destination}</span>
       </div>
 
       <div className="flex items-center gap-5">
