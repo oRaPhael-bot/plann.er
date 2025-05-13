@@ -6,7 +6,7 @@ import { DestinationAndDateStep } from "./steps/destination-and-step";
 import { InviteGuestsStep } from "./steps/invite-guests-step";
 import { DateRange } from "react-day-picker";
 import { api } from "../../lib/axios";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 
 export function CreateTripPage() {
   const navigate = useNavigate();
